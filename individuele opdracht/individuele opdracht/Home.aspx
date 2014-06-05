@@ -35,7 +35,7 @@
                         Text:
                         <asp:TextBox ID="tbBericht" runat="server" Width="162px" Height="185" CssClass="whitespace"></asp:TextBox>
                         <br />
-                        <asp:Button ID="btnVoegCategorieToe" runat="server" class="btn btn-primary" Text="Voeg Bericht toe" Width="168px" OnClick="btnUploadfile_Click"/>
+                        <asp:Button ID="btnVoegCategorieToe" runat="server" class="btn btn-primary" Text="Voeg Bericht toe" Width="168px" OnClick="btnUploadfile_Click" />
                     </asp:Panel>
                 </asp:TableCell>
                 <asp:TableCell>
@@ -60,12 +60,20 @@
                         <asp:Button ID="btnLike" runat="server" class="btn btn-primary" Text="Like" Width="88px" OnClick="btnLike_Click" />
                         <asp:Button ID="btnDislike" runat="server" class="btn btn-primary" Text="Dislike" Width="88px" OnClick="btnDislike_Click" />
                         <br />
-                        <asp:Button ID="btnReport" runat="server" class="btn btn-primary" Text="Report" Width="180px"  OnClick="btnReport_Click"/>
+                        <asp:Button ID="btnReport" runat="server" class="btn btn-primary" Text="Report" Width="180px" OnClick="btnReport_Click" />
                         <br />
                         <asp:TextBox ID="tbComment" runat="server" Height="185px" Width="175px" CssClass="whitespace"></asp:TextBox>
                         <br />
-                        <asp:Button ID="btnComment" runat="server" Width="180px" class="btn btn-primary" Text="Commentaar toevoegen" OnClick="btnComment_Click"/>
+                        <asp:Button ID="btnComment" runat="server" Width="180px" class="btn btn-primary" Text="Commentaar toevoegen" OnClick="btnComment_Click" />
                     </asp:Panel>
+                </asp:TableCell>
+                <asp:TableCell>
+                    <asp:DataGrid ID="likesdislikes" runat="server" AutoGenerateColumns="false" AllowPaging="false">
+                        <Columns>
+                            <asp:BoundColumn DataField="LIKES" HeaderText="Likes"/>
+                            <asp:BoundColumn DataField="DISLIKES" HeaderText="Dislikes"/>
+                        </Columns>
+                    </asp:DataGrid>
                 </asp:TableCell>
             </asp:TableRow>
         </asp:Table>

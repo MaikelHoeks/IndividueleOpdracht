@@ -17,6 +17,12 @@ namespace individuele_opdracht
         database d = new database();
         protected void Page_Load(object sender, EventArgs e)
         {
+            likesdislikes.DataSource = d.Getlikes();
+            likesdislikes.DataBind();
+            foreach (bericht b in bm.Berichten)
+            {
+                b.ReactieVullen(b.Titel);
+            }
             if (!IsPostBack)
             {
                 try
@@ -98,22 +104,18 @@ namespace individuele_opdracht
                 if (lbFileSharing.SelectedItem.ToString().Length > 8)
                 {
                     bm.BestandenVullen();
+                    selectedBestand = lbFileSharing.SelectedItem.ToString();
                     foreach (bericht b in bm.Berichten)
                     {
-                        selectedBestand = lbFileSharing.SelectedItem.ToString();
                         lbFileSharing.Items.Clear();
-                        lbFileSharing.Items.Add(b.ToString());
-
-                        // foreach (reactie r in b.reactie)
-                        //{
-                        //     lbFileSharing.Items.Add(r.ToString());
-                        //}
-                        // return;
+                        b.ReactieVullen(b.Titel);
+                        foreach (reactie r in b.reactie)
+                        {
+                            lbFileSharing.Items.Add(r.ToString());
+                        }
 
                     }
                 }
-                selectedCategorie = lbFileSharing.SelectedItem.Text;
-                lbFileSharing.Items.Clear();
                 foreach (categorie c in bm.Categorieen)
                 {
                     try
@@ -134,7 +136,7 @@ namespace individuele_opdracht
         {
             string comment = "";
             int likes = 0;
-
+            selectedCategorie = lbFileSharing.SelectedItem.ToString();
             if (lbFileSharing.SelectedItem.ToString().Length > 8)
             {
                 if (lbFileSharing.SelectedItem.ToString().Substring(0, 8) == "Bestand:")
@@ -164,6 +166,7 @@ namespace individuele_opdracht
             {
                 if (selectedBestand == b.ToString())
                 {
+                    b.ReactieVullen(b.Titel);
                     foreach (reactie c in b.reactie)
                     {
                         if (lbFileSharing.SelectedItem.Text == c.ToString())
@@ -217,27 +220,28 @@ namespace individuele_opdracht
                     }
                 }
             }
-            //foreach (bericht b in bm.Berichten)
-            // {
-            //  if (selectedBestand == b.ToString())
-            ///   {
-            //      foreach (reactie c in b.reactie)
-            ///      {
-            //           if (lbFileSharing.SelectedItem.Text == c.ToString())
-            //         {
-            //              c.Dislike();
-            //              comment = c.Inhoud;
-            //               dislikes = c.Dislikes;
-            ///           }
-            //       }
-            //       lbFileSharing.Items.Clear();
-            //       foreach (reactie c in b.reactie)
-            //        {
-            //             lbFileSharing.Items.Add(c.ToString());
-            //         }
-            //         b.UpdateReactieDislikes(dislikes, comment);
-            //     }
-            // }
+            foreach (bericht b in bm.Berichten)
+            {
+                b.ReactieVullen(b.Titel);
+                if (selectedBestand == b.ToString())
+                {
+                    foreach (reactie c in b.reactie)
+                    {
+                        if (lbFileSharing.SelectedItem.Text == c.ToString())
+                        {
+                            c.Dislike();
+                            comment = c.Inhoud;
+                            dislikes = c.Dislikes;
+                        }
+                    }
+                    lbFileSharing.Items.Clear();
+                    foreach (reactie c in b.reactie)
+                    {
+                        lbFileSharing.Items.Add(c.ToString());
+                    }
+                    b.UpdateReactieDislikes(dislikes, comment);
+                }
+            }
         }
 
         /// <summary>
@@ -279,32 +283,33 @@ namespace individuele_opdracht
                         }
                     }
                 }
-                //foreach (bericht b in bm.Berichten)
-                //{
-                   // if (selectedBestand == b.ToString())
-                   // {
-                   //     foreach (reactie c in b.reactie)
-                    //    {
-                   //         if ((string)lbFileSharing.SelectedItem.Text == c.ToString())
-                   //         {
-                    //            if (c.Reports < 4)
-                   //             {
-                    ///                c.Report();
-                    //                comment = c.Inhoud;
-                    //                reports = c.Reports;
-                //
-                     //           }
-                    //            else
-                   //             { b.Verwijderreactie(c); b.DeleteComment(c.Inhoud); c.Report(); lbFileSharing.Items.Clear(); foreach (reactie c2 in b.reactie) { lbFileSharing.Items.Add(c2.ToString()); } return; }
-                   //         }
-                    ///    }
-                    //foreach (reactie c in b.reactie)
-                    //    {
-                    //        lbFileSharing.Items.Add(c.ToString());
-                     //   }
-                     //   b.UpdateCommentReports(reports, comment);
-                    //}
-                //}
+                foreach (bericht b in bm.Berichten)
+                {
+                    if (selectedBestand == b.ToString())
+                    {
+                        b.ReactieVullen(b.Titel);
+                        foreach (reactie c in b.reactie)
+                        {
+                            if ((string)lbFileSharing.SelectedItem.Text == c.ToString())
+                            {
+                                if (c.Reports < 4)
+                                {
+                                    c.Report();
+                                    comment = c.Inhoud;
+                                    reports = c.Reports;
+
+                                }
+                                else
+                                { b.Verwijderreactie(c); b.DeleteComment(c.Inhoud); c.Report(); lbFileSharing.Items.Clear(); foreach (reactie c2 in b.reactie) { lbFileSharing.Items.Add(c2.ToString()); } return; }
+                            }
+                        }
+                        foreach (reactie c in b.reactie)
+                        {
+                            lbFileSharing.Items.Add(c.ToString());
+                        }
+                        b.UpdateCommentReports(reports, comment);
+                    }
+                }
             }
             finally
             {

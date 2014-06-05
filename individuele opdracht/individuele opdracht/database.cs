@@ -41,7 +41,7 @@ namespace individuele_opdracht
                 con.Close();
             }
             catch { }
-            
+
         }
 
         public void Open()
@@ -72,7 +72,7 @@ namespace individuele_opdracht
                 {
                     gebruikersnummer = reader.GetInt32(2);
                     return true;
-                   
+
                 }
                 else
                 {
@@ -193,8 +193,8 @@ namespace individuele_opdracht
         public void DeleteBericht(string bestandsnaam)
         {
             OracleCommand om = new OracleCommand("", con);
-            om.CommandText = "DELETE FROM BESTAND WHERE BESTANDSNAAM='" + bestandsnaam + "'";
-
+            om.CommandText = "DELETE FROM BESTAND WHERE BESTANDSNAAM=:bestandsnaam";
+            om.Parameters.Add(":bestandsnaam", bestandsnaam);
             try
             {
                 om.CommandType = CommandType.Text;
@@ -233,8 +233,9 @@ namespace individuele_opdracht
         /// <returns></returns>
         public string OuderCatergorieOpvragen(string naam)
         {
-            string query = "SELECT OUDERCATEGORIE FROM CATEGORIE WHERE NAAM = '" + naam + "'";
+            string query = "SELECT OUDERCATEGORIE FROM CATEGORIE WHERE NAAM =:naam";
             OracleCommand oc = new OracleCommand(query, con);
+            oc.Parameters.Add(":naam", naam);
             OracleDataReader reader = oc.ExecuteReader();
             reader = oc.ExecuteReader();
             if (reader.HasRows)
@@ -250,8 +251,9 @@ namespace individuele_opdracht
         /// <returns></returns>
         public string OuderCatergorieBerichtOpvragen(string bestandnaam)
         {
-            string query = "SELECT CATEGORIE FROM BESTAND WHERE BESTANDSNAAM = '" + bestandnaam + "'";
+            string query = "SELECT CATEGORIE FROM BESTAND WHERE BESTANDSNAAM =:bestandnaam";
             OracleCommand oc = new OracleCommand(query, con);
+            oc.Parameters.Add(":bestandnaam", bestandnaam);
             OracleDataReader reader = oc.ExecuteReader();
             reader = oc.ExecuteReader();
             if (reader.HasRows)
@@ -268,8 +270,9 @@ namespace individuele_opdracht
         public string GebruikersNaamOphalen(int gebruikersnummer)
         {
             string naam = "";
-            string query = "SELECT GEBRUIKERSNAAM FROM GEBRUIKER WHERE GEBRUIKERNR ='" + gebruikersnummer + "'";
+            string query = "SELECT GEBRUIKERSNAAM FROM GEBRUIKER WHERE GEBRUIKERNR =:gebruikersnummer";
             OracleCommand oc = new OracleCommand(query, con);
+            oc.Parameters.Add(":gebruikersnummer", gebruikersnummer);
             OracleDataReader reader = oc.ExecuteReader();
             reader = oc.ExecuteReader();
             if (reader.HasRows)
@@ -286,7 +289,9 @@ namespace individuele_opdracht
         public void UpdateLikes(int likes, string naam)
         {
             OracleCommand om = new OracleCommand("", con);
-            om.CommandText = "UPDATE BESTAND SET LIKES='" + likes + "' WHERE BESTANDSNAAM= '" + naam + "'";
+            om.CommandText = "UPDATE BESTAND SET LIKES=:likes  WHERE BESTANDSNAAM= :naam ";
+            om.Parameters.Add(":likes", likes);
+            om.Parameters.Add(":naam", naam);
             try
             {
                 om.CommandType = CommandType.Text;
@@ -306,7 +311,9 @@ namespace individuele_opdracht
         public void Updatedislikes(int dislikes, string naam)
         {
             OracleCommand om = new OracleCommand("", con);
-            om.CommandText = "UPDATE BESTAND SET DISLIKES='" + dislikes + "' WHERE BESTANDSNAAM= '" + naam + "'";
+            om.CommandText = "UPDATE BESTAND SET DISLIKES=:dislikes WHERE BESTANDSNAAM= :naam ";
+            om.Parameters.Add(":dislikes", dislikes);
+            om.Parameters.Add(":naam", naam);
             try
             {
                 om.CommandType = CommandType.Text;
@@ -326,7 +333,9 @@ namespace individuele_opdracht
         public void UpdateReports(int reports, string naam)
         {
             OracleCommand om = new OracleCommand("", con);
-            om.CommandText = "UPDATE BESTAND SET GERAPPORTEERD='" + reports + "' WHERE BESTANDSNAAM= '" + naam + "'";
+            om.CommandText = "UPDATE BESTAND SET GERAPPORTEERD=:reports WHERE BESTANDSNAAM=:naam ";
+            om.Parameters.Add(":naam", naam);
+            om.Parameters.Add(":reports", reports);
             try
             {
                 om.CommandType = CommandType.Text;
@@ -339,9 +348,9 @@ namespace individuele_opdracht
             }
         }
         /// <summary>
-/// Haalt alle commentaar uit de database
-/// </summary>
-/// <returns></returns>
+        /// Haalt alle commentaar uit de database
+        /// </summary>
+        /// <returns></returns>
         public List<string> ReactieOpvragen()
         {
             List<string> comment = new List<string>();
@@ -417,7 +426,9 @@ namespace individuele_opdracht
         public void UpdateLikesReactie(int likes, string naam)
         {
             OracleCommand om = new OracleCommand("", con);
-            om.CommandText = "UPDATE COMMENTAAR SET COMMENTLIKE='" + likes + "' WHERE TEKST= '" + naam + "'";
+            om.CommandText = "UPDATE COMMENTAAR SET COMMENTLIKE=:likes WHERE TEKST= :naam ";
+            om.Parameters.Add(":naam", naam);
+            om.Parameters.Add(":likes", likes);
             try
             {
                 om.CommandType = CommandType.Text;
@@ -437,7 +448,9 @@ namespace individuele_opdracht
         public void UpdatedislikesReactie(int dislikes, string naam)
         {
             OracleCommand om = new OracleCommand("", con);
-            om.CommandText = "UPDATE COMMENTAAR SET COMMENTDISLIKE ='" + dislikes + "' WHERE TEKST = '" + naam + "'";
+            om.CommandText = "UPDATE COMMENTAAR SET COMMENTDISLIKE =:dislikes WHERE TEKST = :naam";
+            om.Parameters.Add(":dislikes", dislikes);
+            om.Parameters.Add(":naam", naam);
             try
             {
                 om.CommandType = CommandType.Text;
@@ -457,7 +470,9 @@ namespace individuele_opdracht
         public void UpdateReportsReactie(int reports, string naam)
         {
             OracleCommand om = new OracleCommand("", con);
-            om.CommandText = "UPDATE COMMENTAAR SET COMMENTGERAPPORTEERD='" + reports + "' WHERE TEKST = '" + naam + "'";
+            om.CommandText = "UPDATE COMMENTAAR SET COMMENTGERAPPORTEERD=:reports WHERE TEKST = :naam";
+            om.Parameters.Add(":reports", reports);
+            om.Parameters.Add(":naam", naam);
             try
             {
                 om.CommandType = CommandType.Text;
@@ -476,8 +491,8 @@ namespace individuele_opdracht
         public void DeleteReactie(string tekst)
         {
             OracleCommand om = new OracleCommand("", con);
-            om.CommandText = "DELETE  FROM COMMENTAAR WHERE TEKST='" + tekst + "'";
-
+            om.CommandText = "DELETE  FROM COMMENTAAR WHERE TEKST= :tekst";
+            om.Parameters.Add(":tekst", tekst);
             try
             {
                 om.CommandType = CommandType.Text;
@@ -489,5 +504,19 @@ namespace individuele_opdracht
                 //MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-    } 
+        public DataTable Getlikes()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Open();
+                OracleCommand om = new OracleCommand("", con);
+                om.CommandText = "SELECT COUNT(LIKES) AS LIKES, COUNT(DISLIKES) AS DISLIKES FROM BESTAND";
+                om.CommandType = CommandType.Text;
+                dt.Load(om.ExecuteReader());
+            }
+            catch { }
+            return dt;
+        }
+    }
 }
