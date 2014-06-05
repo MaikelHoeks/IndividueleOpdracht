@@ -79,7 +79,7 @@ namespace individuele_opdracht
                     return false;
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }
@@ -105,11 +105,9 @@ namespace individuele_opdracht
 
                 if (affectedRows > 0)
                 {
-                    //MessageBox.Show("succesvol toegevoegd!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    //MessageBox.Show("Insert failed!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch { }
@@ -177,11 +175,9 @@ namespace individuele_opdracht
 
                 if (affectedRows > 0)
                 {
-                    //MessageBox.Show("succesvol toegevoegd!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    //MessageBox.Show("Insert failed!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch { }
@@ -201,9 +197,8 @@ namespace individuele_opdracht
                 om.ExecuteReader();
                 om.Dispose();
             }
-            catch (Exception ex)
+            catch 
             {
-                //MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         /// <summary>
@@ -298,9 +293,8 @@ namespace individuele_opdracht
                 om.ExecuteReader();
                 om.Dispose();
             }
-            catch (Exception ex)
+            catch 
             {
-                //MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         /// <summary>
@@ -320,9 +314,8 @@ namespace individuele_opdracht
                 om.ExecuteReader();
                 om.Dispose();
             }
-            catch (Exception ex)
+            catch
             {
-                //MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         /// <summary>
@@ -342,9 +335,8 @@ namespace individuele_opdracht
                 om.ExecuteReader();
                 om.Dispose();
             }
-            catch (Exception ex)
+            catch
             {
-                //MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         /// <summary>
@@ -407,16 +399,13 @@ namespace individuele_opdracht
 
                 if (affectedRows > 0)
                 {
-                    // MessageBox.Show("succesvol toegevoegd!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    // MessageBox.Show("Insert failed!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                //MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         /// <summary>
@@ -436,9 +425,8 @@ namespace individuele_opdracht
                 om.ExecuteReader();
                 om.Dispose();
             }
-            catch (Exception ex)
+            catch
             {
-                //MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         /// <summary>
@@ -458,9 +446,8 @@ namespace individuele_opdracht
                 om.ExecuteReader();
                 om.Dispose();
             }
-            catch (Exception ex)
+            catch
             {
-                //MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         /// <summary>
@@ -480,9 +467,8 @@ namespace individuele_opdracht
                 om.ExecuteReader();
                 om.Dispose();
             }
-            catch (Exception ex)
+            catch
             {
-                //MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         /// <summary>
@@ -500,9 +486,8 @@ namespace individuele_opdracht
                 om.ExecuteReader();
                 om.Dispose();
             }
-            catch (Exception ex)
+            catch
             {
-                //MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         public DataTable Getlikes()
