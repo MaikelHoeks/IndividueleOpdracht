@@ -24,7 +24,7 @@ namespace UnitTestProject1
             berichtmanager bm = new berichtmanager();
             bool expected = true;
             bool actual;
-            actual = bm.VoegCategorieToe(new categorie("Fiets"), true);
+            actual = bm.VoegCategorieToe(new categorie("Test"), true);
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Controleer de test methode");
         }
@@ -40,5 +40,48 @@ namespace UnitTestProject1
             Assert.Inconclusive("Controleer de test methode");
         }
 
+        [TestMethod]
+        public void TestVerwijderReactie()
+        {
+            bericht b = new bericht("test", "test", "admin", 22009);
+            bool expected = true;
+            bool actual;
+            actual = b.Verwijderreactie(new reactie("admin",22009,"test"));
+            Assert.AreEqual(expected, actual);
+            Assert.Inconclusive("Controleer de test methode");
+        }
+
+        [TestMethod]
+        public void TestVerwijderCategorie()
+        {
+            berichtmanager bm = new berichtmanager();
+            bool expected = true;
+            bool actual;
+            actual = bm.VerwijderCategorie(new categorie("Test"));
+            Assert.AreEqual(expected, actual);
+            Assert.Inconclusive("Controleer de test methode");
+        }
+
+        [TestMethod]
+        public void TestVoegBestandToe()
+        {
+            berichtmanager bm = new berichtmanager();
+            bool expected = true;
+            bool actual;
+            actual = bm.VoegBestandToe(new bericht("test", "test", "admin", 22009),true);
+            Assert.AreEqual(expected, actual);
+            Assert.Inconclusive("Controleer de test methode");
+        }
+
+        [TestMethod]
+        public void TestVerwijderBestand()
+        {
+            berichtmanager bm = new berichtmanager();
+            bool expected = true;
+            bool actual;
+            actual = bm.VerwijderBestand(new bericht("test", "test", "admin", 22009));
+            Assert.AreEqual(expected, actual);
+            Assert.Inconclusive("Controleer de test methode");
+        }
     }
 }
