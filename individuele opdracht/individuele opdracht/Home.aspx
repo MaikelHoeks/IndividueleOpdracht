@@ -68,7 +68,11 @@
                     </asp:Panel>
                 </asp:TableCell>
                 <asp:TableCell>
-                    <asp:DataGrid ID="likesdislikes" runat="server" AutoGenerateColumns="false" AllowPaging="false">
+                    <asp:Panel ID="WhiteSpace3" runat="server" Height="450px" Width="70px">
+                    </asp:Panel>
+                </asp:TableCell>
+                <asp:TableCell>
+                    <asp:DataGrid ID="likesdislikes" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1">
                         <Columns>
                             <asp:BoundColumn DataField="LIKES" HeaderText="Likes"/>
                             <asp:BoundColumn DataField="DISLIKES" HeaderText="Dislikes"/>
@@ -77,6 +81,7 @@
                 </asp:TableCell>
             </asp:TableRow>
         </asp:Table>
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:GetlikesConnectie %>" ProviderName="<%$ ConnectionStrings:GetlikesConnectie.ProviderName %>" SelectCommand="SELECT SUM(LIKES) AS likes, SUM(DISLIKES) AS dislikes FROM DBI260972.BESTAND"></asp:SqlDataSource>
     </form>
     <script src="js/jquery-2.1.1.js"></script>
     <script src="js/bootstrap.min.js"></script>

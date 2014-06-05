@@ -157,6 +157,15 @@ namespace individuele_opdracht {
         protected global::System.Web.UI.WebControls.Button btnComment;
         
         /// <summary>
+        /// WhiteSpace3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel WhiteSpace3;
+        
+        /// <summary>
         /// likesdislikes control.
         /// </summary>
         /// <remarks>
@@ -164,5 +173,14 @@ namespace individuele_opdracht {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DataGrid likesdislikes;
+        
+        /// <summary>
+        /// SqlDataSource1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
     }
 }

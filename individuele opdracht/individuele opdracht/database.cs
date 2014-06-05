@@ -8,7 +8,7 @@ using Oracle.DataAccess.Types;
 
 namespace individuele_opdracht
 {
-    class database
+    public class database
     {
         private OracleConnection con;
 
@@ -59,6 +59,7 @@ namespace individuele_opdracht
         /// <param name="wachtwoord"></param>
         public bool Login(string gebruikersnaam, string wachtwoord)
         {
+            Open();
             int gebruikersnummer;
             string query = "SELECT GEBRUIKERSNAAM, WACHTWOORD, GEBRUIKERNR FROM GEBRUIKER WHERE GEBRUIKERSNAAM=:gebruikersnaam and WACHTWOORD=:wachtwoord";
             OracleCommand om = new OracleCommand(query, con);
@@ -353,6 +354,7 @@ namespace individuele_opdracht
         /// <returns></returns>
         public List<string> ReactieOpvragen()
         {
+            Open();
             List<string> comment = new List<string>();
             string tekst = "";
             int likes = 0;
@@ -511,7 +513,7 @@ namespace individuele_opdracht
             {
                 Open();
                 OracleCommand om = new OracleCommand("", con);
-                om.CommandText = "SELECT COUNT(LIKES) AS LIKES, COUNT(DISLIKES) AS DISLIKES FROM BESTAND";
+                om.CommandText = "SELECT SUM(LIKES) AS LIKES, SUM(DISLIKES) AS DISLIKES FROM BESTAND";
                 om.CommandType = CommandType.Text;
                 dt.Load(om.ExecuteReader());
             }

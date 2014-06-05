@@ -17,8 +17,6 @@ namespace individuele_opdracht
         database d = new database();
         protected void Page_Load(object sender, EventArgs e)
         {
-            likesdislikes.DataSource = d.Getlikes();
-            likesdislikes.DataBind();
             foreach (bericht b in bm.Berichten)
             {
                 b.ReactieVullen(b.Titel);
