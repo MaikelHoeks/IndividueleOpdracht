@@ -26,7 +26,19 @@ namespace UnitTestProject1
             bool actual;
             actual = bm.VoegCategorieToe(new categorie("Fiets"), true);
             Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("werkt niet");
+            Assert.Inconclusive("Controleer de test methode");
         }
+
+        [TestMethod]
+        public void TestVoegReactieToe()
+        {
+            bericht b = new bericht("test", "test", "admin", 22009);
+            bool expected = true;
+            bool actual;
+            actual = b.VoegReactieToe(new reactie("admin", 22009, "test is gelukt"), true);
+            Assert.AreEqual(expected, actual);
+            Assert.Inconclusive("Controleer de test methode");
+        }
+
     }
 }

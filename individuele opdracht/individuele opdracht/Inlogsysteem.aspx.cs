@@ -25,9 +25,14 @@ namespace individuele_opdracht
             {
                 this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Kan geen verbinding maken met de database');", true);
             }
+            finally
+            {
+                d.Close();
+            }
         }
         protected void Button1_click(object sender, EventArgs e)
         {
+            d.Open();
             if (d.Login(this.inlognaam.Text, this.wachtwoord.Text))
             {
                 FormsAuthentication.RedirectFromLoginPage(inlognaam.Text, Persist.Checked);

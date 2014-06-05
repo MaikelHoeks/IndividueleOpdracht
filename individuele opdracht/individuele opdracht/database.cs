@@ -59,7 +59,6 @@ namespace individuele_opdracht
         /// <param name="wachtwoord"></param>
         public bool Login(string gebruikersnaam, string wachtwoord)
         {
-            Open();
             int gebruikersnummer;
             string query = "SELECT GEBRUIKERSNAAM, WACHTWOORD, GEBRUIKERNR FROM GEBRUIKER WHERE GEBRUIKERSNAAM=:gebruikersnaam and WACHTWOORD=:wachtwoord";
             OracleCommand om = new OracleCommand(query, con);
