@@ -164,7 +164,7 @@ namespace individuele_opdracht
                 }
                 else
                 {
-                    //MessageBox.Show("Selecteer eerst een bestand");
+                    this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Selecteer eerst een bestand');", true);
                 }
             }
         }
