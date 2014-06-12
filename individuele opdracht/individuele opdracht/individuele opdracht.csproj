@@ -61,6 +61,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Bericht.aspx" />
     <Content Include="css\bootstrap-theme.css" />
     <Content Include="css\bootstrap-theme.min.css" />
     <Content Include="css\bootstrap.css" />
@@ -76,6 +77,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bericht.aspx.cs">
+      <DependentUpon>Bericht.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Bericht.aspx.designer.cs">
+      <DependentUpon>Bericht.aspx</DependentUpon>
+    </Compile>
     <Compile Include="bericht.cs" />
     <Compile Include="berichtmanager.cs" />
     <Compile Include="categorie.cs" />

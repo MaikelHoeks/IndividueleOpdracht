@@ -13,16 +13,20 @@ namespace individuele_opdracht
     {
         string selectedCategorie;
         string selectedBestand;
+        string naam;
         berichtmanager bm = new berichtmanager();
         database d = new database();
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             foreach (bericht b in bm.Berichten)
             {
                 b.ReactieVullen(b.Titel);
             }
             if (!IsPostBack)
             {
+                naam = Session["gebruiker"].ToString();
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('welkom  " + naam + "');", true);
                 try
                 {
                     d.Connect();
@@ -101,18 +105,11 @@ namespace individuele_opdracht
                 }
                 if (lbFileSharing.SelectedItem.ToString().Length > 8)
                 {
+
                     bm.BestandenVullen();
                     selectedBestand = lbFileSharing.SelectedItem.ToString();
-                    foreach (bericht b in bm.Berichten)
-                    {
-                        lbFileSharing.Items.Clear();
-                        b.ReactieVullen(b.Titel);
-                        foreach (reactie r in b.reactie)
-                        {
-                            lbFileSharing.Items.Add(r.ToString());
-                        }
-
-                    }
+                    Session["Bericht"] = selectedBestand;
+                    Response.Redirect("Bericht.aspx");
                 }
                 foreach (categorie c in bm.Categorieen)
                 {
@@ -130,190 +127,7 @@ namespace individuele_opdracht
             }
             d.Close();
         }
-        protected void btnLike_Click(object sender, EventArgs e)
-        {
-            string comment = "";
-            int likes = 0;
-            selectedCategorie = lbFileSharing.SelectedItem.ToString();
-            if (lbFileSharing.SelectedItem.ToString().Length > 8)
-            {
-                if (lbFileSharing.SelectedItem.ToString().Substring(0, 8) == "Bestand:")
-                {
-                    bm.BestandenVullen();
-                    foreach (bericht b in bm.Berichten)
-                    {
-                        if (lbFileSharing.SelectedItem.ToString() == b.ToString())
-                        {
-                            b.Like();
-                            bm.UpdateLikes(b.Likes, b.Titel);
-                            if (selectedCategorie == null)
-                            {
-                                RefreshList();
-                                break;
-                            }
-                            else
-                            {
-                                RefreshList(selectedCategorie);
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            foreach (bericht b in bm.Berichten)
-            {
-                if (selectedBestand == b.ToString())
-                {
-                    b.ReactieVullen(b.Titel);
-                    foreach (reactie c in b.reactie)
-                    {
-                        if (lbFileSharing.SelectedItem.Text == c.ToString())
-                        {
-                            c.Like();
-                            comment = c.Inhoud;
-                            likes = c.Likes;
-                        }
-                    }
-                    lbFileSharing.Items.Clear();
-                    foreach (reactie c in b.reactie)
-                    {
-                        lbFileSharing.Items.Add(c.ToString());
-                    }
-                    b.UpdateReactieLikes(likes, comment);
-                }
-            }
-        }
 
-        /// <summary>
-        /// Code waarmee dislikes aan bestanden en commentaren kan worden toegevoegd
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnDislike_Click(object sender, EventArgs e)
-        {
-            string comment = "";
-            int dislikes = 0;
-            if (lbFileSharing.SelectedItem.ToString().Length > 8)
-            {
-                if (lbFileSharing.SelectedItem.ToString().Substring(0, 8) == "Bestand:")
-                {
-                    bm.BestandenVullen();
-                    foreach (bericht b in bm.Berichten)
-                    {
-                        if (lbFileSharing.SelectedItem.ToString() == b.ToString())
-                        {
-                            b.Dislike();
-                            bm.UpdateDislikes(b.Dislikes, b.Titel);
-                            if (selectedCategorie == null)
-                            {
-                                RefreshList();
-                                break;
-                            }
-                            else
-                            {
-                                RefreshList(selectedCategorie);
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            foreach (bericht b in bm.Berichten)
-            {
-                b.ReactieVullen(b.Titel);
-                if (selectedBestand == b.ToString())
-                {
-                    foreach (reactie c in b.reactie)
-                    {
-                        if (lbFileSharing.SelectedItem.Text == c.ToString())
-                        {
-                            c.Dislike();
-                            comment = c.Inhoud;
-                            dislikes = c.Dislikes;
-                        }
-                    }
-                    lbFileSharing.Items.Clear();
-                    foreach (reactie c in b.reactie)
-                    {
-                        lbFileSharing.Items.Add(c.ToString());
-                    }
-                    b.UpdateReactieDislikes(dislikes, comment);
-                }
-            }
-        }
-
-        /// <summary>
-        /// /// Code waarmee reports aan bestanden en commentaren kan worden toegevoegd
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnReport_Click(object sender, EventArgs e)
-        {
-            string comment = "";
-            int reports = 0;
-            try
-            {
-                if (lbFileSharing.SelectedItem.ToString().Length > 8)
-                {
-                    if (lbFileSharing.SelectedItem.ToString().Substring(0, 8) == "Bestand:")
-                    {
-                        bm.BestandenVullen();
-                        foreach (bericht b in bm.Berichten)
-                        {
-                            if (lbFileSharing.SelectedItem.Text == b.ToString())
-                            {
-                                if (b.Reports < 4)
-                                {
-                                    b.Report();
-
-                                    bm.UpdateReports(b.Reports, b.Titel);
-                                    break;
-                                }
-                                else
-                                {
-                                    foreach (reactie c in b.reactie)
-                                    { b.DeleteComment(c.Inhoud); }
-                                    bm.VerwijderBestand(b);
-                                    b.Report();
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                }
-                foreach (bericht b in bm.Berichten)
-                {
-                    if (selectedBestand == b.ToString())
-                    {
-                        b.ReactieVullen(b.Titel);
-                        foreach (reactie c in b.reactie)
-                        {
-                            if ((string)lbFileSharing.SelectedItem.Text == c.ToString())
-                            {
-                                if (c.Reports < 4)
-                                {
-                                    c.Report();
-                                    comment = c.Inhoud;
-                                    reports = c.Reports;
-
-                                }
-                                else
-                                { b.Verwijderreactie(c); b.DeleteComment(c.Inhoud); c.Report(); lbFileSharing.Items.Clear(); foreach (reactie c2 in b.reactie) { lbFileSharing.Items.Add(c2.ToString()); } return; }
-                            }
-                        }
-                        foreach (reactie c in b.reactie)
-                        {
-                            lbFileSharing.Items.Add(c.ToString());
-                        }
-                        b.UpdateCommentReports(reports, comment);
-                    }
-                }
-            }
-            finally
-            {
-
-            }
-        }
         protected void btnUploadfile_Click(object sender, EventArgs e)
         {
             if (selectedCategorie != "")
@@ -354,31 +168,6 @@ namespace individuele_opdracht
                 }
             }
         }
-        protected void btnComment_Click(object sender, EventArgs e)
-        {
-            selectedBestand = lbFileSharing.SelectedItem.ToString();
-            bm.BestandenVullen();
-            foreach (bericht b in bm.Berichten)
-            {
-                if (b.ToString() == selectedBestand)
-                {
-                    bool test = b.VoegReactieToe(new reactie("admin", 11111, tbComment.Text), false);
-                    if (test)
-                    {
-                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Commentaar toegevoegd');", true);
-                    }
-                    if (!test)
-                    {
-                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "ex", "alert('Commentaar niet toegevoegd');", true);
-                    }
-                    lbFileSharing.Items.Clear();
-                    foreach (reactie r in b.reactie)
-                    {
-                        lbFileSharing.Items.Add(r.ToString());
-                    }
-                }
-            }
-            tbComment.Text = "";
-        }
+        
     }
 }

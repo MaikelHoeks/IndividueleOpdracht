@@ -35,6 +35,7 @@ namespace individuele_opdracht
             d.Open();
             if (d.Login(this.inlognaam.Text, this.wachtwoord.Text))
             {
+                Session["gebruiker"] = inlognaam.Text;
                 FormsAuthentication.RedirectFromLoginPage(inlognaam.Text, Persist.Checked);
             }
             else

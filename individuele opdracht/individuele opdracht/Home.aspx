@@ -53,21 +53,6 @@
                     </asp:Panel>
                 </asp:TableCell>
                 <asp:TableCell>
-                    <asp:Panel ID="GroupBox3" runat="server" Height="450px" Width="190px">
-                        <br />
-                        <br />
-                        <br />
-                        <asp:Button ID="btnLike" runat="server" class="btn btn-primary" Text="Like" Width="88px" OnClick="btnLike_Click" />
-                        <asp:Button ID="btnDislike" runat="server" class="btn btn-primary" Text="Dislike" Width="88px" OnClick="btnDislike_Click" />
-                        <br />
-                        <asp:Button ID="btnReport" runat="server" class="btn btn-primary" Text="Report" Width="180px" OnClick="btnReport_Click" />
-                        <br />
-                        <asp:TextBox ID="tbComment" runat="server" Height="185px" Width="175px" CssClass="whitespace"></asp:TextBox>
-                        <br />
-                        <asp:Button ID="btnComment" runat="server" Width="180px" class="btn btn-primary" Text="Commentaar toevoegen" OnClick="btnComment_Click" />
-                    </asp:Panel>
-                </asp:TableCell>
-                <asp:TableCell>
                     <asp:Panel ID="WhiteSpace3" runat="server" Height="450px" Width="70px">
                     </asp:Panel>
                 </asp:TableCell>
